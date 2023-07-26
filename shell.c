@@ -1,48 +1,34 @@
-#include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#define MAX_COMMAND_LEN 1000
 
 int main() {
-	char command[1000];
+    char command[MAX_COMMAND_LEN];
 
-	while (1) {
-		printf("$ ");
-		fflush(stdout);
+    while (1) {
+        printf("#cisfun$ ");
+        fflush(stdout);
 
-		if (fgets(command, sizeof(command), stdin) == NULL)
-			break;
+        if (fgets(command, sizeof(command), stdin) == NULL) {
+            printf("\n");
+            break;
+        }
 
-		if (command[strlen(command) - 1] == '\n')
-			command[strlen(command) - 1] = '\0';
+        command[strcspn(command, "\n")] = '\0';
 
-		if (strlen(command) > 0) {
-			if (access(command, X_OK) == 0) {
-				pid_t pid = fork();
+        if (strlen(command) > 0) {
 
-				if (pid == -1) {
-					perror("fork error");
-					exit(EXIT_FAILURE);
-				} else if (pid == 0) {
-					char *argv[2];
-					argv[0] = command;
-					argv[1] = NULL;
+            int result = system(command);
 
-					if (execve(command, argv, environ) == -1) {
-						fprintf(stderr, "%s: 1: %s: not found\n",
-								command, command);
-						exit(EXIT_FAILURE);
-					}
-				} else {
-					int status;
-					waitpid(pid, &status, 0);
-				}
-			} else {
-				fprintf(stderr, "%s: 1: %s: not found\n", command, command);
-			}
-		}
-		if (feof(stdin)) {
-			printf("\n");
-			break;
-		}
-	}
+            if (result == -1) {
+                fprintf(stderr, "%s: command not found\n", command);
+            }
+        }
+    }
 
-	return 0;
+    return 0;
 }
+
