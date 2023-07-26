@@ -8,7 +8,7 @@
  * Description:
  *      EXTERNAL_COMMAND (1) represents commands that start with a '/'
  *      INTERNAL_COMMAND (2) represents internal commands like "exit" or "env"
- *      PATH_COMMAND (3) represents comnds found in the PATH environment var
+ *      PATH_COMMAND (3) represents comnds found in the PATH environment variable
  *      INVALID_COMMAND (-1) represents invalid commands
  *
  * Return: constant representing the type of the command

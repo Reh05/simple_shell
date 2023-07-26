@@ -15,11 +15,15 @@
  * Return: 0 on success
  */
 
+char *shell_name = NULL;
+char **commands = NULL;
+char *line = NULL;
+int status = 0;
+
 int main(int argc, char **argv)
 {
-	char **current_command = NULL, *shell_name = NULL;
-	char **commands = NULL, *line = NULL;
-	int b, type_command = 0, status = 0;
+	char **current_command = NULL;
+	int b, type_command = 0;
 	size_t n = 0;
 
 	(void)argc;
