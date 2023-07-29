@@ -77,8 +77,4 @@ void remove_comment(char *str);
 void env(char **args);
 void quit(char **args);
 
-/* Getline Function Prototypes */
-void assign_line_ptr(char **line_ptr, size_t *n, char *buff, size_t b);
-ssize_t custom_getline(char **line_ptr, size_t *n, FILE *stream);
-
 #endif /* SHELL_H */
